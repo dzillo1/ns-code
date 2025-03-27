@@ -1,1 +1,1 @@
-code helpers
+js code snippets
