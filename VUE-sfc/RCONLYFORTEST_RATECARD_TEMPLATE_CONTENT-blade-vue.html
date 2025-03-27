@@ -1,0 +1,375 @@
+<link rel="stylesheet" type="text/css" href="/media/ns/css/diet-plans/01312025/hp-lc.css"> 
+<link rel="stylesheet" type="text/css" href="/media/ns/css/diet-plans/01312025/rc-options-advantage.css"> 
+
+<div v-if="getPrice" id="product-pane" tabindex="-1" v-cloak>
+    <div class="rc">
+
+        <!--UPDATE:-->
+        <div id="greeting-app">
+            <greeting></greeting>
+        </div>
+
+        <div class="rc-head">
+            <div class="container">
+                <div class="flex-row">
+					<div class="col left">
+						<h1 class="text-uppercase">High Protein or Low Carb Plans</h1>
+						<h2 class="">Lose weight with specialized nutrition that fits your goals.</h2>
+					</div>
+					<div class="col right">
+						<ul>
+							<li>Get a customized meal plan designed for your weight loss approach</li>
+							<li>Enjoy high-protein choices or carb conscious meals with home delivery</li>
+							<li>Order additional meals anytime with FREE Club Advantage access—$69.99 value</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<div class="container">
+	<div class="row">
+		<div id="order-options" class="col-xs-12 order-options">
+			<div class="oo-wrap">
+				<div class="row">
+					<div class="col-xs-12 col-md-6">
+						<!--meal plan options-->
+						<p class="h5">Customize your Plan</p>
+						<div id="meal-plan-options" class="option-cat">
+                            <p class="option-title tk-korolev fw-700">Meal Plan <br aria-hidden="true"/><a href="#" class="more-info-link" onclick="omni_track('MoreInfo:MealPlan')" data-target="#mealPlan" data-toggle="modal">More info</a></p>
+							<div class="btn-wrap">
+								<button type="button" aria-pressed="true" class="selected" onclick="omni_track('Select:HighProtein')" value="allages" id="allages" name="iammealplan" aria-pressed="true" @click="generateKeyPartner($event,'allages');mealPlanOptionsButtonSelection($event);">High Protein</button>
+								<button type="button" class="unselected" onclick="omni_track('Select:LowCarb');removeHash();" value="over50" id="over50" name="iammealplan" aria-pressed="false" @click="generateKeyPartner($event,'over');mealPlanOptionsButtonSelection($event);">Low Carb</button>
+							</div>
+						</div>
+<!--menu options-->
+						<div id="menu-options" class="option-cat">
+                            <p class="option-title tk-korolev fw-700">Menu <br aria-hidden="true"/><a href="#" class="more-info-link" onclick="omni_track('MoreInfo:ChefsPicks')" data-target="#chefsPicks" data-toggle="modal">More info</a></p>
+							<div class="btn-wrap">
+								<div class="btn-wrap-50">
+									<span class="chf-pk-co text-white tk-korolev fw-900 text-uppercase">Best for first order</span>
+									<button type="button" class="selected" aria-pressed="true" value="favorite" id="favorites" name="menuoption" @click="generateKeyPartner($event,'favorite');menuOptionsButtonSelectionNew($event);" onclick="omni_track('Select:ChefsPicks')" class="selected">Chef&rsquo;s Picks</button>
+								</div>
+								<button type="button" class="unselected" aria-pressed="false" value="custom" id="custom" name="menuoption" @click="generateKeyPartner($event,'custom');menuOptionsButtonSelectionNew($event);" onclick="omni_track('SelectPickMenu')" class="unselected">I&rsquo;ll Pick My Menu</button>
+							</div>
+						</div>
+
+<!--days of meals options-->
+						<div id="my-meals" class="option-cat">
+							<p class="option-title tk-korolev fw-700">Shipment <br class="hidden-xs" aria-hidden="true"/>Frequency <br aria-hidden="true"/><a href="#" onclick="omni_track('MoreInfo:MealsPerWeek')" data-target="#my-meals-difference" data-toggle="modal" class="more-info-link">More info</a></p>
+							<div class="btn-wrap">
+								<button type="button" aria-pressed="false" value="most-day" id="most-day" name="mealoption" class="selected" onclick="omni_track('Select:28Meals')" @click="generateKeyPartner($event,'most-day');mealOptionsButtonSelection($event);">2 Weeks </button>
+								<button type="button" aria-pressed="false" value="every-day" id="every-day" name="mealoption" class="unselected" onclick="omni_track('Select:56Meals')" @click="generateKeyPartner($event,'every-day');mealOptionsButtonSelection($event);">4 Weeks</button>
+							</div>
+						</div>
+
+<!-- delivery options-->
+						<p class="h5 purchase-options">Purchase options</p>
+						<div id="delivery-options">
+							<div class="auto-d-wrap">
+								<div class="sub-title-wrapper">
+									<span class="fw-700 tk-korolev">Pay per shipment:</span>
+									<hr>
+								</div>
+								<div class="btn-wrap">
+									<button type="button" value="autodelivery" @click="deliveryOptionsButtonSelection($event)" id="autodelivery" name="delivery" onclick="omni_track('AutoDeliverySelected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="true" class="selected" v-cloak>
+										<div class="ship-btn-txt" v-cloak>
+											<div class="del-type">Per Shipment Auto-Delivery <br aria-hidden="true"/>
+											<span class="per-ship">$@{{ getFormattedPrice((planPrices.autodelivery_Prices.monthprice)/100) }}/per shipment</span></div>
+										</div>
+									</button>
+									<div class="sub-title-wrapper">
+										<span class="fw-700 tk-korolev" v-if="isPrePayOfferBetter()">or Pre-pay &amp; Save up to $@{{ Math.round((planPrices.prepay4_Prices.listprice-planPrices.prepay4_Prices.discounted_price)/100) }}!:</span>
+										<hr>
+									</div>
+									<div class="prepay-wrap">
+										<button v-if="isPrepay2Exist() && isPrepayEnabled() && isPrePay2BetterThanAD()" type="button" value="bogo" id="bogo" name="delivery" onclick="omni_track('Prepay2Selected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="false" class="unselected" @click="deliveryOptionsButtonSelection($event)">
+											<div class="ship-btn-txt">
+												<div class="del-type">Pay for 2 shipments now <br aria-hidden="true"/>
+												<span class="per-ship">$@{{ getFormattedPrice((planPrices.prepay_Prices.monthprice)/100) }}/per shipment </span></div>
+												<span class="save">Save <br aria-hidden="true">$@{{Math.round((planPrices.prepay_Prices.listprice-planPrices.prepay_Prices.discounted_price)/100)}}</span>
+											</div>
+										</button>
+										<button v-if="isPrepay3Exist() && isPrepayEnabled() && isPrePay3BetterThanAD()" type="button" value="pre3pay" id="pre3pay" @click="deliveryOptionsButtonSelection($event)" name="delivery" onclick="omni_track('Prepay3Selected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="false" class="unselected">
+											<div class="ship-btn-txt">
+												<div class="del-type">Pay for 3 shipments now <br aria-hidden="true"/>
+												<span class="per-ship">$@{{ getFormattedPrice((planPrices.prepay3_Prices.monthprice)/100) }}/per shipment</span></div>
+												<span class="save">Save <br aria-hidden="true">$@{{ Math.round((planPrices.prepay3_Prices.listprice-planPrices.prepay3_Prices.discounted_price)/100) }}</span>
+											</div>
+										</button>
+										<button v-if="isPrepay4Exist() && isPrepayEnabled() && isPrePay4BetterThanAD()" type="button" value="pre4pay" id="pre4pay" @click="deliveryOptionsButtonSelection($event)" name="delivery" onclick="omni_track('Prepay4Selected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="false" class="unselected">
+											<div class="ship-btn-txt">
+												<div class="del-type">Pay for 4 shipments now <br aria-hidden="true"/>
+												<span class="per-ship">$@{{ getFormattedPrice((planPrices.prepay4_Prices.monthprice)/100) }}/per shipment</span></div>
+												<span class="save">Save <br aria-hidden="true">$@{{ Math.round((planPrices.prepay4_Prices.listprice-planPrices.prepay4_Prices.discounted_price)/100) }}</span>
+											</div>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="price-col col-xs-12 col-md-6">
+						<div class="pricing-container">
+							<div class="price-per-day daily-price" v-cloak>
+								<p>Price Per Day</p>
+								<p>$@{{ getFormattedPrice(( planPrices[planPriceSelected].dayprice) / 100) }}</p>
+							</div>
+							<div class="price-access daily-price">
+								<p>6-month Club Advantage Access <br class="visible-md" aria-hidden="true"><span class="value">$69.99 Value!</span></p>
+								<p>FREE</p>
+							</div>
+							<div class="per-month fw-700" v-cloak>
+								<p>Price Per Shipment:</p>
+								<p class="orderAmountStr">$@{{getFormattedPrice(planPrices[planPriceSelected].monthprice/100)}}</p>
+							</div>
+<!--autodelivery-price-->
+<span id="autodelivery-price">
+</span>
+
+<!--month2month-price-->
+<span id="month2month-price" v-cloak>
+</span>
+
+<!--bogo-price-->
+<span id="bogo-price" v-cloak>
+</span>
+
+<!--pre3pay-price-->
+<span id="pre3pay-price" v-cloak>
+</span>
+
+<!--pre4pay-price-->
+<span id="pre4pay-price" v-cloak>
+</span>
+</div>
+
+<div id="add-shakes">
+	<div class="offer-link">
+		<p class="tk-korolev"><span class="fw-900 text-uppercase">Bonus offer:</span> 50% off shakes to jumpstart your weight loss!</p>
+		<a href="#" class="more-info-link" data-target="#shakes-learn-more" data-toggle="modal" onclick="omni_track('Shakes:Details')">Details</a>
+	</div>
+	<div class="shake-checkbox">
+		<input type="checkbox" name="shakes-added" id="shakes-added"
+			@click="toggleCrossSell()"
+			onclick="omni_track('AddToPlanProbioticShakesCheckCheckbox')" aria-checked="false">
+		<p class="tk-korolev add">Add 28 Protein Shakes <br><span class="text-green-darker fw-900 text-uppercase">Save 50%</span></p>
+		<p class="price"><s>$79.98</s><br aria-hidden="true"><span class="text-green-darker fw-700">$39.98</span></p>
+	</div>
+	<div id="flav-select" class="collapse">
+		<select id="choose-flavor" @change="setRateCardCrossSellFormData($event)" name="choose-flavor" class="form-control">
+			<option v-for="crossSellProduct in crosssellProducts"
+				:value="crossSellProduct.productId" :key="crossSellProduct.productId"
+				:xsskuId="crossSellProduct.skuId"
+				:xscategory="crossSellProduct.mealCategoryId">@{{crossSellProduct.productName}}
+			</option>
+		</select>
+	</div>
+</div>
+    <div>
+        <button type="submit" id="submitBtn" class="rc-submit btn btn-default btn-lg btn-block btn-block-mobile" @click="addItemToCartOnSticky(1, 28)" onclick="omni_track('ContinueToCheckout')">Continue</button>
+    </div>
+</div>
+</div>
+</div><!--END order-options-->
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="simple-steps">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Support your weight loss <span> with the right plan for you!</span></h2>
+                <p class="sub">Get started today in 3 easy steps.</p>
+        </div>
+        <div class="flex-row step1">
+            <div class="txt-col">
+                <p class="number">1.</p>
+                <div class="info-wrap">
+                    <h3>Pick your plan</h3>
+                    <h4 class="text-uppercase">High Protein</h4>
+                    <ul class="list-checked check-cirlce">
+						<li>Reach your protein goals with a specialized meal plan</li>
+						<li>Includes high protein Hearty Inspirations meals packed with up to 30g protein</li>
+					</ul>
+                    <h4 class="text-uppercase">Low-Carb</h4>
+                    <ul class="list-checked check-cirlce">
+						<li>Live low carb with a specialized meal plan</li>
+						<li>Includes carb conscious meals including NEW delicious choices</li>
+					</ul>
+                </div>
+            </div>
+            <div class="img-col">
+                <img src="/media/ns/diet-plans/12192024/mealplans/rc-mp-step1.webp" class="img-responsive" alt="waffles, bar, shake and skillet meal" loading="lazy">
+            </div>
+        </div>
+        <div class="flex-row step2-3">
+            <div class="step2">
+                <p class="number tk-koroelv"><span>2.</span> <span>Pick your menu</span></p>
+                <div class="info-wrap">
+                    <div class="icon">
+                        <img src="/media/ns/diet-plans/12192024/rc-menu-step4.svg" class="img-responsive menu-icon" alt="icon" loading="lazy">
+                    </div>
+                    <p class="icon-txt">Choose Chef&rsquo;s Picks for a selection of our best choices, or pick your own meals from a curated menu.</p>
+                </div>
+            </div>
+            <div class="step3">
+                <p class="number"><span>3.</span> <span>Choose your frequency</span></p>
+                <div class="info-wrap">
+                    <div class="icon">
+                        <img src="/media/ns/diet-plans/12192024/rc-calendar-step3.svg" class="img-responsive cal-icon" alt="icon" loading="lazy">
+                    </div>  
+                    <p class="icon-txt">Get specially curated meals—shipped to your door every 2 or 4 weeks.</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="clubadv">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-5 col-md-4 img">
+				<img src="https://www.nutrisystem.com/media/ns127015/clubadvantage-lp-logo.svg" alt="Club Advantage powered by Nutrisystem" class="adv-logo" loading="lazy">
+ 			</div>
+			<div class="col-xs-12 col-sm-7 col-lg-6 txt">
+				<h2>PLUS! FREE access to Club Advantage.</h2>
+				<p class="h3">Order as many additional meals as you want and have them delivered on your schedule.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="support">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="card">
+                    <h2>Stay on track with personal support!</h2>
+                    <div class="flex-row">
+                        <div class="col">
+                            <div class="img-wrap">
+                                <img src="/media/ns/diet-plans/12192024/rc-app.webp" class="img-responsive" alt="mobile phone displaying web app">
+                            </div>
+                            <div class="txt-wrap">
+                                <p class="title">Official Nutrisystem<sup>&reg;</sup> App</p>
+                                <p>Easily track your food, water, activity and progress and get a personalized nutrition plan.</p>
+                            </div>
+                        </div>
+                        <div class="col two">
+                            <div class="img-wrap">
+                                <img src="/media/ns/diet-plans/12192024/rc-coaching.webp" class="img-responsive" alt="mobile phone displaying web app">
+                            </div>
+                            <div class="txt-wrap">
+                                <p class="title">Expert Coaching</p>
+                                <p>Connect with a weight loss coach for 1-on-1 support and motivation via chat or scheduled call.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foods">
+    <div class="container">
+        <div class="scroll-btns visible-lg">
+            <button class="scroll-left" id="scrollLeftBtn"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="71" viewBox="0 0 70 71" fill="none">
+                <circle cx="35" cy="35.7808" r="34" stroke="#1D4321" stroke-width="2"/>
+                <path d="M17.5 35.3433L43.0938 50.1198L43.0938 20.5667L17.5 35.3433Z" fill="#1D4321"/>
+              </svg></button>
+            <button class="scroll-right" id="scrollRightBtn"><svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71" fill="none">
+                <circle cx="35.7021" cy="35.7808" r="34" stroke="#1D4321" stroke-width="2"/>
+                <path d="M52.3271 35.3433L26.7334 50.1198L26.7334 20.5667L52.3271 35.3433Z" fill="#1D4321"/>
+              </svg></button>
+         </div>
+            <div class="col">
+                <div class="mod-bg">
+                    <h2>Just Eat The Food And <span>Lose The Weight.</span></h2>
+                    <div class="card-wrap" id="cardWrap">
+                        <div class="flex-row">
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos1.webp" class="img-responsive" alt="Bourbon-Style Chicken">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos2.webp" class="img-responsive" alt="Merlot Beef with Root Vegetables">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos3.webp" class="img-responsive" alt="Sesame Beef & Broccoli with Brown Rice">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos4.webp" class="img-responsive" alt="Riced Cauliflower Grilled Chicken Bowl">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos5.webp" class="img-responsive" alt="Grain-Crusted Pollock with Vegetables">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos6.webp" class="img-responsive" alt="Turkey Sausage and Egg Muff">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos7.webp" class="img-responsive" alt="Bistro-Style Chicken Alfredo">
+                            </div>
+                            <div class="card">
+                                <img src="/media/ns/diet-plans/12192024/carousel-mealplan/carousel-mp-pos8.webp" class="img-responsive" alt="Broccoli and Cheese Stuffed Chicken Breast">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="success">
+    <div class="container">
+        <div class="row flex-row">
+            <div class="col-xs-12">
+                <h2>Nicki lost 20 lbs.<sup>*</sup></h2>
+                <p class="sub">Real Success Story</p>
+                <p class="qt">&ldquo;I love the low carb plan. Finally, I&rsquo;m doing <br class="hidden-xs hidden-sm" aria-hidden="true"/>low-carb right and I feel amazing.&rdquo;</p>
+            </div>
+            <div class="col-xs-12">
+                <img src="/media/ns/diet-plans/12192024/mealplans/rc-mp-quote.webp" class="img-responsive ba-img" alt="before and after of Nicki">
+                <p class="small">*Real Success Story. Compensated for appearance. Expect to lose an avg 1-2 lbs per week.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container disclaimer"><p class="small"> The Nutrisystem program is available to Continental U.S. residents only and cannot be shipped to PO Boxes, APO Boxes or military addresses.<br aria-hidden="true"> <strong>On Nutrisystem, additional grocery items are required.</strong></p></div>
+            
+
+<!--UPDATE:VUE test - template-->
+@push('scripts')
+<script defer src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+        const app = Vue.createApp({});
+
+        app.component('greeting', {
+            data() {
+                return {
+                    message: 'Hello Subbu!'
+                };
+            },
+            methods: {
+                changeMessage() {
+                    this.message = "Subbu is awesome!";
+                }
+            },
+            template: `
+                <div class="container">
+                    <h2>@{{ message }}</h2> <!-- Use @{{ }} to avoid Blade-Vue conflict -->
+                    <button @click="changeMessage">Click me</button>
+                </div>
+            `
+        });
+        app.mount('#greeting-app');
+    });
+</script>
+
+<style scoped>
+    #greeting-app h2 {
+        color: blueviolet;
+    }
+</style>
+@endpush
