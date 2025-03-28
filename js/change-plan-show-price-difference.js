@@ -3,7 +3,7 @@ $(() => {
   const INITIAL_VISIBLE_PANES = 6;
   const ADDITIONAL_PANES = 3;
 
-  // Cache jQuery selectors
+  // Cache selectors
   const $seeMoreLink = $('a.see-more-link');
   const $showLessLink = $('a.show-less-link');
   const $panes = $('.well');
