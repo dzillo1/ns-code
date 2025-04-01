@@ -92,13 +92,11 @@ const app = Vue.createApp({
         },
         removeItem(){
           this.isVisible=false;
-          console.log('removeItem called, isVisible:', this.isVisible); // Debugging
         },
         checkVisibility(){
           if(this.quantity===0){
             this.isVisible=false;
           }
-          console.log('checkVisibility called, isVisible:', this.isVisible); // Debugging
         }
       },
       computed:{
