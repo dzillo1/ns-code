@@ -59,7 +59,13 @@ function setupTermsCheckbox() {
 function setupDeliveryFrequencyToggle() {
 
     const toggleVisibility = (selector, display) => {
-        document.querySelectorAll(selector).forEach(element => element.style.display = display);
+                $(selector).each(function () {
+            if (display === "none") {
+                $(this).slideUp();
+            } else {
+                $(this).slideDown();
+            }
+        });
     };
     if (document.getElementById('addToPlan')) {
         toggleVisibility(".ship-frequency", "none");
