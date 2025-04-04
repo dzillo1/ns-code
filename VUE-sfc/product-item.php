@@ -110,9 +110,6 @@ const app = Vue.createApp({
         formattedPriceItem() {
             return this.priceItem.toFixed(2);
         },
-        totalPriceItems() {
-            return (this.quantity * this.priceItem).toFixed(2);
-        },
       }
 });
 app.mount('#productItem');
