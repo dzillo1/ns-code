@@ -260,9 +260,11 @@ const app = Vue.createApp({
     };
     Object.assign(this, freqData[freq]);
   },
+
     selectPrepay(prepay) {
         this.selectedPrepay = prepay;
     },
+    
     changePricePerMeal(newPricePerMeal) {
         this.pricePerMeal = newPricePerMeal;
     }
