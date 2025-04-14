@@ -69,48 +69,60 @@
 </div>
 
 <script>
+const { ref, computed} = Vue;
+
+
 const app = Vue.createApp({
-      data() {
-        return{
-          quantity: 1,
-          priceItem: 5.50,
-          isVisible: false,
-          showAddBtn: true,
-          quantity: 0,
+  setup(){
+          const quantity= ref(1);
+          const priceItem= ref(5.50);
+          const isVisible= ref(false);
+          const showAddBtn= ref(true);
+
+          const itemIncrement = () =>{
+            quantity.value++;
+          };
+          const itemDecrement = () =>{
+            if (quantity.value > 0){
+              quantity.value--;
+            }
+            if (quantity.value === 0){
+              isVisible.value = false;
+              showAddBtn.value = true;
+            }
+          };
+          const updateCount = (event) =>{
+            const value = parseInt(event.target.value);
+            quantity.value = isNaN(value) ? 0 : value;
+            if (quantity.value === 0) {
+              isVisible.value=false;
+              showAddBtn.value=true;
+              }
+          };
+
+        const showCounter = ()=>{
+          isVisible.value = true;
+          showAddBtn.value = false;
+          quantity.value++;
         };
-      },
-      methods: {
-        itemIncrement(){
-          this.quantity++;
-        },
-        itemDecrement() {
-          if (this.quantity > 0) {
-            this.quantity--;
-          }
-          if (this.quantity === 0) {
-            this.isVisible = false;
-            this.showAddBtn = true;
-          }
-        },
-        updateCount(event){
-          const value = parseInt(event.target.value);
-          this.quantity = isNaN(value) ? 0 : value;
-          if (this.quantity === 0) {
-            this.isVisible = false;
-            this.showAddBtn = true;
-          }
-        },
-        showCounter(){
-          this.isVisible = true;
-          this.showAddBtn = false;
-          this.quantity++;
-        },
-      },
-      computed:{
-        formattedPriceItem() {
-            return this.priceItem.toFixed(2);
-        },
-      }
+
+    
+        const formattedPriceItem=computed(()=> {
+            return priceItem.value.toFixed(2);
+        });
+  
+        return{
+          quantity,
+          priceItem,
+          isVisible,
+          showAddBtn,
+          formattedPriceItem,
+          itemDecrement,
+          itemIncrement,
+          showCounter,
+          updateCount,
+        };
+  }
 });
 app.mount('#productItem');
 </script>

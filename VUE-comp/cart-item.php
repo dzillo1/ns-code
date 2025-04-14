@@ -66,48 +66,68 @@
           </div>
         </div>
 
-<script>
+        <script>
+const { ref, computed } = Vue;
+
 const app = Vue.createApp({
-      data() {
-        return{
-          quantity: 1,
-          priceItem: 5.50,
-          isVisible: true,
-        };
-      },
-      methods: {
-        itemIncrement(){
-          this.quantity++;
-        },
-        itemDecrement(){
-          if (this.quantity > 0){
-          this.quantity--;
-        }
-        this.checkVisibility();
-        },
-        updateCount(event){
-          const value = parseInt(event.target.value);
-          this.quantity = isNaN(value) ? 0 : value;
-          this.checkVisibility();
-        },
-        removeItem(){
-          this.isVisible=false;
-        },
-        checkVisibility(){
-          if(this.quantity===0){
-            this.isVisible=false;
-          }
-        }
-      },
-      computed:{
-        formattedPriceItem() {
-            return this.priceItem.toFixed(2);
-        },
-        totalPriceItems() {
-            return (this.quantity * this.priceItem).toFixed(2);
-        }
+  setup() {
+    // Reactive state
+    const quantity = ref(1);
+    const priceItem = ref(5.50);
+    const isVisible = ref(true);
+
+    // Methods
+    const itemIncrement = () => {
+      quantity.value++;
+    };
+
+    const itemDecrement = () => {
+      if (quantity.value > 0) {
+        quantity.value--;
       }
+      checkVisibility();
+    };
+
+    const updateCount = (event) => {
+      const value = parseInt(event.target.value);
+      quantity.value = isNaN(value) ? 0 : value;
+      checkVisibility();
+    };
+
+    const removeItem = () => {
+      isVisible.value = false;
+    };
+
+    const checkVisibility = () => {
+      if (quantity.value === 0) {
+        isVisible.value = false;
+      }
+    };
+
+    // Computed properties
+    const formattedPriceItem = computed(() => {
+      return priceItem.value.toFixed(2);
+    });
+
+    const totalPriceItems = computed(() => {
+      return (quantity.value * priceItem.value).toFixed(2);
+    });
+
+    // Return everything to the template
+    return {
+      quantity,
+      priceItem,
+      isVisible,
+      itemIncrement,
+      itemDecrement,
+      updateCount,
+      removeItem,
+      formattedPriceItem,
+      totalPriceItems,
+    };
+  },
 });
+
 app.mount('#shoppingCart');
 </script>
 
