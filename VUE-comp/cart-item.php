@@ -66,17 +66,17 @@
           </div>
         </div>
 
-        <script>
+<script>
 const { ref, computed } = Vue;
 
 const app = Vue.createApp({
   setup() {
-    // Reactive state
+    /*Reactive*/
     const quantity = ref(1);
     const priceItem = ref(5.50);
     const isVisible = ref(true);
 
-    // Methods
+    /*methods*/
     const itemIncrement = () => {
       quantity.value++;
     };
@@ -104,7 +104,7 @@ const app = Vue.createApp({
       }
     };
 
-    // Computed properties
+    /*computed*/
     const formattedPriceItem = computed(() => {
       return priceItem.value.toFixed(2);
     });
@@ -113,7 +113,6 @@ const app = Vue.createApp({
       return (quantity.value * priceItem.value).toFixed(2);
     });
 
-    // Return everything to the template
     return {
       quantity,
       priceItem,
@@ -131,67 +130,7 @@ const app = Vue.createApp({
 app.mount('#shoppingCart');
 </script>
 
-<style scoped>
-  #cartItem{
-    border-bottom: 2px solid var(--ns-lightest-gray);
-    font-size: 1rem;
-    font-family: Arial, sans-serif;
-    padding: 1rem 0 .625rem;
-  }
-  #cartItem .img-modal-link{
-    width:7.5rem;
-    flex-shrink: 0;
-  }
-  #cartItem .qty-wrapper{
-    width:65%;
-  }
-  #cartItem input.form-control.qty{
-    text-align: center;
-    border-radius: 0;
-    height:2.5rem;
-    width:3rem;
-  }
-  #cartItem input::-webkit-outer-spin-button,
-  #cartItem input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0 auto;
-  }
-  #cartItem input[type="number"] {
-      -moz-appearance: textfield;
-  }
-  #cartItem .title-modal-link {
-    text-decoration: none;
-    color: var(--ns-gray);
-  }
-  #cartItem .lower-qty, #cartItem .add-qty {
-    border-radius: .25rem 0 0 .25rem;
-    border: 1px solid #d6d6d6;
-    border-right: 0;
-    color: var(--ns-gray);
-    background: #fff;
-    padding: .75rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#cartItem .add-qty {
-    border-radius: 0 .25rem .25rem 0;
-    border: 1px solid #d6d6d6;
-    border-left: 0;
-  }
-  #cartItem .remove {
-    color: #6d7477;
-    font-size: .813rem;
-}
-#cartItem .lower-qty:focus, #cartItem .add-qty:focus {
-    color: var(--bs-body-color);
-    background-color: var(--ns-mint);
-    border: 2px solid var(--ns-dark-green);
-    outline: 0;
-}
-</style>
+<style scoped> #cartItem{ border-bottom: 2px solid var(--ns-lightest-gray); font-size: 1rem; font-family: Arial, sans-serif; padding: 1rem 0 .625rem; } #cartItem .img-modal-link{ width:7.5rem; flex-shrink: 0; } #cartItem .qty-wrapper{ width:65%; } #cartItem input.form-control.qty{ text-align: center; border-radius: 0; height:2.5rem; width:3rem; } #cartItem input::-webkit-outer-spin-button, #cartItem input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0 auto; } #cartItem input[type="number"] { -moz-appearance: textfield; } #cartItem .title-modal-link { text-decoration: none; color: var(--ns-gray); } #cartItem .lower-qty, #cartItem .add-qty { border-radius: .25rem 0 0 .25rem; border: 1px solid #d6d6d6; border-right: 0; color: var(--ns-gray); background: #fff; padding: .75rem; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; } #cartItem .add-qty { border-radius: 0 .25rem .25rem 0; border: 1px solid #d6d6d6; border-left: 0; } #cartItem .remove { color: #6d7477; font-size: .813rem; } #cartItem .lower-qty:focus, #cartItem .add-qty:focus { color: var(--bs-body-color); background-color: var(--ns-mint); border: 2px solid var(--ns-dark-green); outline: 0; } </style>
 <!------------------------------------------------------------>
 </body>
 </html>

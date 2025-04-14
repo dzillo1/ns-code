@@ -879,7 +879,9 @@ height:auto;
     border: 1px solid var(--Stroke-stroke-light, #EAEBEB);
     padding:1rem;
 }
-
+#delivery .ship-frequency{
+    display: none;
+}
 @media (max-width: 767px) {
     .swal2-container .swal2-popup.swal2-toast {
         width: max-content;

@@ -65,12 +65,10 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
 const { ref, computed} = Vue;
-
 
 const app = Vue.createApp({
   setup(){
@@ -127,91 +125,7 @@ const app = Vue.createApp({
 app.mount('#productItem');
 </script>
 
-<style scoped>
-  #productItem{
-    font-size: 1rem;
-    font-family: Arial, sans-serif;
-    padding: 1rem 0 .625rem;
-    max-width:17.5rem;
-  }
-  #productItem .card{
-    padding:1rem;
-  }
-  #productItem .food-title {
-    font-size: 1.125rem;
-    font-weight: 400;
-    text-decoration: none;
-  }
-  #productItem .add-to-cart-btn {
-    height: 2.688rem;
-    font-size: 1.188rem;
-    color: #006B00;
-    background-color: #fff;
-    border-radius: .25rem;
-    border: 2px solid var(--Action-action-secondary-green, #006B00);
-    background: var(--Background-background-primary, #FFF);
-    width:65%;
-  }
-  #productItem .img-modal-link{
-    width:7.5rem;
-    flex-shrink: 0;
-  }
-  #productItem .counter{
-    width:11.25rem;
-  }
-  #productItem input::-webkit-outer-spin-button,
-  #productItem input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0 auto;
-  }
-  #productItem input[type="number"] {
-    -moz-appearance: textfield;
-    border-top: 2px solid var(--Colors-Brand-Dark-Green, #006B00);
-    border-bottom: 2px solid var(--Colors-Brand-Dark-Green, #006B00);
-    font-size:1.5rem;
-    text-align: center;
-    border-radius: 0;
-    height:2.5rem;
-    width:3rem;
-    padding:0;
-  }
-  #productItem .title-modal-link {
-    text-decoration: none;
-    color: var(--ns-gray);
-  }
-  #productItem .lower-qty, #productItem .add-qty {
-    border-radius: .25rem 0 0 .25rem;
-    border: 2px solid var(--Colors-Brand-Dark-Green, #006B00);
-    background: var(--Colors-Brand-White, #FFF);
-    border-right:0;
-    background: #fff;
-    padding: .75rem;
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  #productItem .add-qty {
-    border-radius: 0 .25rem .25rem 0;
-    border-left: 0;
-    border-right: 2px solid var(--Colors-Brand-Dark-Green, #006B00);
-  }
-  #productItem .remove {
-    color: #6d7477;
-    font-size: .813rem;
-  }
-  #productItem .lower-qty:focus, #productItem .add-qty:focus {
-      color: var(--bs-body-color);
-      background-color: var(--ns-mint);
-      border: 2px solid var(--ns-dark-green);
-      outline: 0;
-  }
-  #productItem .product-price{
-    font-size: 1.375rem;
-  }
-  #productItem .prod-cat img {
-      height: 1.3125rem;
-      width: auto;
-  }
-</style>
+<style scoped> #productItem{ font-size: 1rem; font-family: Arial, sans-serif; padding: 1rem 0 .625rem; max-width:17.5rem; } #productItem .card{ padding:1rem; } #productItem .food-title { font-size: 1.125rem; font-weight: 400; text-decoration: none; } #productItem .add-to-cart-btn { height: 2.688rem; font-size: 1.188rem; color: #006B00; background-color: #fff; border-radius: .25rem; border: 2px solid var(--Action-action-secondary-green, #006B00); background: var(--Background-background-primary, #FFF); width:65%; } #productItem .img-modal-link{ width:7.5rem; flex-shrink: 0; } #productItem .counter{ width:11.25rem; } #productItem input::-webkit-outer-spin-button, #productItem input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0 auto; } #productItem input[type="number"] { -moz-appearance: textfield; border-top: 2px solid var(--Colors-Brand-Dark-Green, #006B00); border-bottom: 2px solid var(--Colors-Brand-Dark-Green, #006B00); font-size:1.5rem; text-align: center; border-radius: 0; height:2.5rem; width:3rem; padding:0; } #productItem .title-modal-link { text-decoration: none; color: var(--ns-gray); } #productItem .lower-qty, #productItem .add-qty { border-radius: .25rem 0 0 .25rem; border: 2px solid var(--Colors-Brand-Dark-Green, #006B00); background: var(--Colors-Brand-White, #FFF); border-right:0; background: #fff; padding: .75rem; width: 2.5rem; height: 2.5rem; } #productItem .add-qty { border-radius: 0 .25rem .25rem 0; border-left: 0; border-right: 2px solid var(--Colors-Brand-Dark-Green, #006B00); } #productItem .remove { color: #6d7477; font-size: .813rem; } #productItem .lower-qty:focus, #productItem .add-qty:focus { color: var(--bs-body-color); background-color: var(--ns-mint); border: 2px solid var(--ns-dark-green); outline: 0; } #productItem .product-price{ font-size: 1.375rem; } #productItem .prod-cat img { height: 1.3125rem; width: auto; } </style>
 <!------------------------------------------------------------>
 </body>
 </html>
