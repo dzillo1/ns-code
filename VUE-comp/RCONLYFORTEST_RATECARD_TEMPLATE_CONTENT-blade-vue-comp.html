@@ -346,23 +346,27 @@
         const app = Vue.createApp({});
 
         app.component('greeting', {
-            data() {
-                return {
-                    message: 'Hello Subbu!'
+            setup() {
+
+                const message = Vue.ref('Hello Subbu!');
+
+                const changeMessage = () => {
+                    message.value = "Subbu is awesome!";
                 };
-            },
-            methods: {
-                changeMessage() {
-                    this.message = "Subbu is awesome!";
-                }
+
+                return {
+                    message,
+                    changeMessage
+                };
             },
             template: `
                 <div class="container">
-                    <h2>@{{ message }}</h2> <!-- Use @{{ }} to avoid Blade-Vue conflict -->
+                    <h2>@{{ message }}</h2>
                     <button @click="changeMessage">Click me</button>
                 </div>
             `
         });
+
         app.mount('#greeting-app');
     });
 </script>
