@@ -23,10 +23,10 @@
           <div v-if="isVisible" id="cartItem" class="d-flex flex-column gap-3">
             <div class="d-flex align-items-center gap-3">
                 <a href="#" class="img-modal-link">
-                    <img src="https://www.nutrisystem.com/images/products/frozen/small/Italian-Sausage-And-Turkey-Pepperoni-Pizza_M.jpg" class="img-fluid item-img" alt="Italian Sausage and Turkey Pepperoni Pizza" loading="lazy">
+                    <img src="https://www.nutrisystem.com/images/products/frozen/small/Buttermilk-Waffles_M.jpg" class="img-fluid item-img" alt="Buttermilk Waffles" loading="lazy">
                 </a> 
                 <a href="#" class="title-modal-link">
-                  <p>Italian Sausage and Turkey Pepperoni Pizza</p> 
+                  <p>Buttermilk Waffles</p> 
                   <img src="images/frozen-icon.svg" class="cat-icon" alt="frozen">
                 </a>
             </div> 
