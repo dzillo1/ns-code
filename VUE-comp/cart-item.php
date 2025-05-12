@@ -73,7 +73,7 @@ const app = Vue.createApp({
   setup() {
     /*Reactive*/
     const quantity = ref(1);
-    const priceItem = ref(5.50);
+    const priceItem = ref(2.25);
     const isVisible = ref(true);
 
     /*methods*/
