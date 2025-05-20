@@ -1,0 +1,243 @@
+@import url("https://use.typekit.net/ysc3lah.css");
+
+.mini-cart.offcanvas.offcanvas-end {
+    max-width: 375px;
+}
+.mini-cart .offcanvas-title {
+    font-size: 1.375rem;
+    line-height: 1.3;
+}
+.mini-cart-unlock-free {
+    background: var(--Background-background-tertiary, #EFF6E4);
+}
+.mini-cart-unlock-free .progress {
+    height: .375rem;
+    width: 100%;
+    position: relative;
+    overflow: visible;
+    border-radius: 0.5rem;
+    background: #E6E6E6;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.10) inset;
+}
+.mini-cart-unlock-free .progress-wrap {
+    margin-bottom: .38rem;
+}
+.mini-cart-unlock-free .progress-bar {
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+    background: var(--Primary-Dark-Green, #006B00);
+    border-radius:.5rem;
+}
+.mini-cart-unlock-free p.progress-txt {
+    font-size: 1rem;
+}
+.mini-cart-items {
+    overflow: hidden;
+}
+.mini-cart-item-img {
+    width: 48px;
+    height: 48px;
+}
+.mini-cart-item-copy {
+    max-width: 175px;
+    width: 100%;
+}
+.mini-cart-item-copy.plan-copy {
+    max-width: 270px;
+}
+.mini-cart-item-copy .sale-price {
+    color: #D40000;
+}
+.mini-cart-item-copy .old-price {
+    color: #6D7477;
+}
+.mini-cart-item-name {
+    line-height: 1.3;
+    margin-bottom: 5px;
+}
+.mini-cart-rmv-item {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: #6D7477;
+}
+.mini-cart-qty-wrapper {
+    width: 73px;
+}
+.mini-cart-qty-wrapper .qty-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 100px;
+    background-color: #fff;
+    padding: 0;
+    border: 0;
+    transition: all 0.5s;
+}
+.mini-cart-qty-wrapper .qty-btn.plus:hover {
+    background-color: #006B00;
+}
+.mini-cart-qty-wrapper .qty-btn.plus svg path {
+    transition: all 0.5s;
+}
+.mini-cart-qty-wrapper .qty-btn.plus:hover svg path {
+    fill: #fff;
+}
+.mini-cart-qty-wrapper .qty-btn.minus:hover {
+    background-color: #EAEBEB;
+}
+.mini-cart-qty-wrapper .qty-btn.minus:hover svg path {
+    fill: #29353A;
+}
+.mini-cart-qty-wrapper .qty-btn.plus:active,
+.mini-cart-qty-wrapper .qty-btn.minus:active {
+    transform: scale(0.9);
+}
+.mini-cart-footer {
+    border-top: #F2F2F2;
+    background: #FFFAF1;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.50);
+}
+.mini-cart-footer .go-to-cart-link {
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+#miniCartAddCartMsg,
+#miniCartRmvCartMsg {
+    border-radius: 0.5rem;
+    background: #29353A;
+    color:#fff;
+    max-width: 100%;
+}
+#miniCartAddCartMsg .toast-body p,
+#miniCartRmvCartMsg .toast-body p {
+    line-height: normal;
+}
+.mini-cart-toast .toast-container {
+    top: -67px;
+}
+.mini-cart .plan-item {
+    background: var(--ns-cream);
+}
+.subscription-modal .access-option {
+    align-self: stretch;
+    border-radius: 4px;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    background: #FFF;
+}
+.subscription-modal .access-option .sub-modal-title {
+	font-family: "forma-djr-text", sans-serif;
+    color: #004521;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+.subscription-modal .access-option .sub {
+    margin: 0;
+    color: #002C1F;
+    font-size: 1.25rem;
+    line-height: normal;
+	margin: 0 0 1.38rem;
+}
+.subscription-modal .modal-content{
+	border-radius: 4px;
+	border-top: 10px solid #75C39A;
+	border-right: 0;
+	border-bottom: 0;
+	border-left: 0;
+	background: #FFF;
+	box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.50);
+	top:60px;
+}
+.subscription-modal button.mnth-opt {
+    align-self: stretch;
+    border-radius: 4px;
+    border: 2px solid #BFC2C4;
+    background: #fff;
+}
+.subscription-modal button.mnth-opt.selected {
+    border: 2px solid #004521;
+    background: #FFFBEF;
+}
+.subscription-modal .mnth-opt .fake-radio {
+    content: url(https://www.nutrisystem.com/images/diet-plans/btn-rad-unchk.svg);
+    height: 24px;
+    width: 24px;
+}
+.subscription-modal .mnth-opt.selected .fake-radio {
+    content: url(https://www.nutrisystem.com/media/ns/advantage/02012024/radio-selected.svg);
+    height: 24px;
+    width: 24px;
+}
+.subscription-modal .mnth-opt p {
+    color: #002C1F;
+    font-family: "forma-djr-text", sans-serif;
+    text-align: left;
+    font-size: 0.875rem;
+	line-height: normal;
+}
+.subscription-modal .new-user .mnth-opt p.btn-txt {
+    color: #004521;
+}
+.subscription-modal .mnth-opt p.sub-modal-call-out {
+    border-radius: 2.5rem;
+    background: #EE6352;
+	font-size: 0.75rem;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+}
+.subscription-modal .new-user .mnth-opt p.sub-modal-call-out {
+	background: #f76800;
+}
+.subscription-modal ul li {
+	font-family: "forma-djr-text",sans-serif;
+	color: #004521;
+	font-size: 1.25rem;
+	line-height: 1;
+    margin-bottom: 22px;
+}
+.subscription-modal a.learn-more{
+	color: var(--Text-text-link, #00598A);
+	font-family: "forma-djr-text",sans-serif;
+	font-size: 1rem;
+	line-height: 1.4;
+	text-wrap: nowrap;
+    flex-grow: 1;
+}
+.subscription-modal #choose-plan{
+	font-size: 1.125rem;
+	gap: 0.625rem;
+	border-radius: 4px;
+	background: #E85211;
+	border-color: #E85211;
+	box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 230px;
+}
+.subscription-modal .member{
+	border-top: 1px solid #EAEBEB;
+}
+.subscription-modal .member p {
+	color: #002C1F;
+	font-size: 1rem;
+	line-height: 1.25;
+}
+.subscription-modal .member p a {
+	padding-left: 1.38rem;
+	color: #00598A;
+    line-height: 1.75;
+}
+@media (max-width: 374px) {
+    .mini-cart.offcanvas.offcanvas-end {
+        width: 100%;
+    }
+}
+@media (min-width: 768px) {
+    .subscription-modal .modal-dialog {
+        width: 100%;
+        max-width: 566px;
+    }
+    .subscription-modal .access-option {
+        padding: 0 64px 32px;
+    }
+}

@@ -1,0 +1,214 @@
+.subscription-modal-overlay.with-login#subscriptModal .modal-content {
+    border: 0;
+}
+.subscription-modal-overlay.with-login .subscript-modal-title {
+    color: var(--Text-text-primary, #29353A);
+    font-family: Korolev, sans-serif;
+    font-size: 1.625em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .subscript-modal-title {
+    margin-bottom: 24px;
+}
+.subscription-modal-overlay.with-login .subscript-modal-subtitle {
+    color: var(--Text-text-primary, #29353A);
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+.subscription-modal-overlay.with-login .list-header,
+.subscription-modal-overlay.with-login#subscriptModal ul li,
+.subscription-modal-overlay.with-login#subscriptModal a.learn-more,
+.subscription-modal-overlay.with-login .subscript-option {
+    color: var(--Text-text-primary, #29353A);
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+.subscription-modal-overlay.with-login#subscriptModal a.learn-more {
+    color: var(--Text-text-link, #00598A);
+    font-weight: 400;
+    text-transform: capitalize;
+    text-align: left;
+}
+.subscription-modal-overlay.with-login ul {
+    margin-bottom: 8px;
+}
+.subscription-modal-overlay.with-login ul li:last-of-type {
+    margin-bottom: 0;
+}
+.subscription-modal-overlay.with-login .subscript-option {
+    padding: 16px;
+    margin: 16px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--Radius-Radius-1x, 4px);
+    border: 2px solid var(--Background-background-brand-color, #006B00);
+    background: var(--UI-background-success, #EFF6E4);
+}
+.subscription-modal-overlay.with-login .add-to-cart-btn,
+.subscription-modal-overlay.with-login #subscriptionLogin .login-btn,
+.subscription-modal-overlay.with-login #subscriptItemsErrMsg .shop-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #F76800;
+    border-color: #F76800;
+}
+.subscription-modal-overlay.with-login .add-to-cart-btn:hover,
+.subscription-modal-overlay.with-login #subscriptionLogin .login-btn:hover,
+.subscription-modal-overlay.with-login #subscriptItemsErrMsg .shop-btn:hover {
+    background-color: #FAA21D;
+    border-color: #FAA21D;
+}
+.subscription-modal-overlay.with-login .btn-wrap {
+    margin-bottom: 16px;
+}
+.subscription-modal-overlay.with-login .divider {
+    border-color: #EAEBEB;
+}
+.subscription-modal-overlay.with-login#subscriptModal .member  {
+    border: 0;
+}
+.subscription-modal-overlay.with-login#subscriptModal .member p {
+    color: var(--Text-text-primary, #29353A);
+    text-align: center;
+    font-family: Korolev, sans-serif;
+    font-size: 1.25em;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    padding: 0;
+}
+.subscription-modal-overlay.with-login .login-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 2px solid var(--Action-action-secondary-green, #006B00);
+    background: var(--Background-background-primary, #FFF);
+    text-transform: uppercase;
+    color: var(--Text-text-brand_color, #006B00);
+    text-align: center;
+    font-family: Korolev, sans-serif;
+    font-size: 1.4375em;
+    line-height: 1;
+    font-weight: 900;
+}
+.subscription-modal-overlay.with-login .login-btn:hover {
+    color: #64A535;
+    border-color: #64A535;
+}
+.subscription-modal-overlay.with-login #subscriptionBackBtn,
+.subscription-modal-overlay.with-login #subscriptionModalLabel,
+.subscription-modal-overlay.with-login #subscriptionLogin {
+    transition: all .5s ease;
+}
+.subscription-modal-overlay.with-login .subscription-back-btn {
+    color: var(--Text-text-link, #00598A);
+    font-family: Arial, sans-serif;
+    font-size: 0.875em;
+    font-weight: 700;
+    line-height: normal;
+    background-color: transparent;
+    border: 0;
+}
+.subscription-modal-overlay.with-login .subscription-back-btn {
+    font-size: 0.86em;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin input,
+.subscription-modal-overlay.with-login #subscriptionLogin label,
+.subscription-modal-overlay.with-login #subscriptionLogin a {
+    font-family: Arial, sans-serif;
+}
+.subscription-modal-overlay.with-login .forgot {
+    text-align: center;
+    padding: 16px 0;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .login-btn {
+    color: #fff;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .loginErrorMsg {
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 8px;
+    background: var(--Accent-Light-Red, #FEDED1);
+    margin-bottom: 16px;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .loginErrorMsg .err-icon {
+    width: 100%;
+    max-width: 20px;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .loginErrorMsg span {
+    color: var(--Grays-Slate-Gray, #29353A);
+    font-family: Arial, sans-serif;
+    font-size: 0.875em;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .loginErrorMsg span a {
+    color: var(--Grays-Slate-Gray, #29353A);
+}
+.subscription-modal-overlay.with-login #subscriptItemsErrMsg p:not(.subscript-modal-title) {
+    color: var(--Text-text-primary, #29353A);
+    font-family: Arial, sans-serif;
+    margin: 24px auto;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .floating {
+    position: relative;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .floating input {
+    min-height: 64px;
+    padding: 24px 12px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--Stroke-stroke-primary, #BFC2C4);
+    font-size: 1em;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .floating label {
+    color: var(--Text-text-secondary, #5D6669);
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    margin-bottom: 0;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.5s ease;
+}
+.subscription-modal-overlay.with-login #subscriptionLogin .floating:has(input:focus) label,
+.subscription-modal-overlay.with-login #subscriptionLogin .floating:has(input.has-data) label {
+    top: 15px;
+}
+@media(min-width: 768px) {
+    .subscription-modal-overlay.with-login#subscriptModal .modal-dialog {
+        width: 100%;
+        max-width: 600px;
+    }
+    .subscription-modal-overlay.with-login .modal-body,
+    .subscription-modal-overlay.with-login #subscriptItemsErrMsg .modal-body {
+        padding: 0 64px 64px;
+    }
+    .subscription-modal-overlay.with-login .subscript-modal-title {
+        font-size: 2.375em;
+    }
+    .subscription-modal-overlay.with-login #subscriptionLogin .subscript-modal-title {
+        margin-top: 64px;
+    }
+    .subscription-modal-overlay.with-login#subscriptModal .member p {
+        font-size: 1.75em;
+    }
+    .subscription-modal-overlay.with-login .add-to-cart-btn,
+    .subscription-modal-overlay.with-login .login-btn,
+    .subscription-modal-overlay.with-login #subscriptionLogin .login-btn,
+    .subscription-modal-overlay.with-login #subscriptItemsErrMsg .shop-btn {
+        width: 100%;
+        max-width: 208px;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,39 @@
+$(function() {
+    /* scroll cards right/left */
+    $(document).on('click', '.scroll-right', function() {
+        var $target = $(this).closest('.row').next('.product-row, .card-row');
+        if ($target.length > 0) {
+            $target.animate({ scrollLeft: '+=460' }, 500);
+            $(this).parent().find(".scroll-left").show();
+        } else {
+            console.error('Element with class "product-row" not found');
+        }
+    });
+    
+    $(document).on('click', '.scroll-left', function() {
+        var $target = $(this).closest('.row').next('.product-row, .card-row');
+        if ($target.length > 0) {
+            $target.animate({ scrollLeft: '-=460' }, 500);
+            $(this).parent().find(".scroll-right").removeClass("disabled");
+        } else {
+            console.error('Element with class "product-row" not found');
+        }
+    });
+
+/*at end of rt scroll add class to scroll rt */
+$('.card-row').scroll(function () {
+    var $elem = $(this);
+    var newScrollLeft = $elem.scrollLeft(),
+        width = $elem.width(),
+        scrollWidth = $elem.get(0).scrollWidth;
+    var offset = 0;
+    if (scrollWidth - newScrollLeft - width === offset) {
+        $elem.prev('.row').find('.scroll-right').addClass('disabled');
+        console.log('right');
+    };
+    if (newScrollLeft === 0) {
+        console.log('left');
+    }
+  });
+});
+
