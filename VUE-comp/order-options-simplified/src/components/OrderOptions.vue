@@ -109,4 +109,45 @@ h1{
 .menu-btn img{
 width:100px;
 }
+
+.btn-label {
+    color: var(--Text-text-inactive, #6E7272);
+    font-family: Arial;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.1;
+    padding: 12px 0 10px;
+    display: block;
+}
+
+.btn-desc {
+    color: var(--Text-text-inactive, #6E7272);
+    font-family: Arial;
+    font-size: .875em;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 0 0 1rem;
+    display: block;
+}
+
+button.selected:not(.btn-default) {
+    border: 2px solid #1D4321;
+    background: #fff;
+}
+
+.selected .btn-label {
+    color: #1D4321;
+    position: relative;
+}
+
+.selected .btn-label:after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-image: url(../assets/btn-selected-check.svg);
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 0;
+}
 </style>
