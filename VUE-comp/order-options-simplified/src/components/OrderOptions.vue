@@ -386,7 +386,7 @@ width:100px;
     font-size: 1em;
     font-weight: 700;
     line-height: 1.1;
-    padding: 12px 0 10px;
+    padding: .75rem 0 .625rem;
     display: block;
 }
 
@@ -426,7 +426,7 @@ button.selected:not(.btn-default) {
 .btn-wrap {
     display: flex;
     flex-direction: row;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.11);
+    box-shadow: 0px .25rem .25rem 0px rgba(0, 0, 0, 0.11);
 }
 .order-options button:not(.btn-default) {
     background: #fff;
@@ -448,11 +448,11 @@ button.selected:not(.btn-default) {
     color: #B5F25B;
 }
 .order-options button:not(.btn-default):first-child {
-    border-radius: 4px 0 0 4px;
+    border-radius: .25rem 0 0 .25rem;
     border-right: 0;
 }
 .order-options button:not(.btn-default):last-child {
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 .25rem .25rem 0;
     border-left: 0;
 }
 .order-options button.selected:not(.btn-default) .small {
@@ -467,12 +467,12 @@ button.selected:not(.btn-default) {
     width: 100%;
     text-align: left;
     border: 1px solid #bfc2c4;
-    padding: 12px 16px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.11);
+    padding: .75rem 1rem;
+    box-shadow: 0px .25rem .25rem 0px rgba(0, 0, 0, 0.11);
 }
 
 .order-options .delivery-options button:first-child {
-    border-radius: 4px;
+    border-radius: .25rem;
     margin-bottom:0.625rem;
 
   
@@ -564,7 +564,7 @@ button.selected .save {
     justify-content: center;
     align-items: flex-start;
     background: #fff;
-    border-radius: 16px;
+    border-radius: 1rem;
     border: 1px solid #bfc2c4;
     margin-bottom:1.5rem;
 }
@@ -594,10 +594,10 @@ input[type=checkbox] {
     border: 1px solid #ccc;
     border-radius:0;
     display: inline-block;
-    height: 20px;
+    height: 1.25rem;
     position: relative;
     vertical-align: middle;
-    width: 20px;
+    width: 1.25rem;
     box-shadow: inset 0 1px 3px #0000001a;
 }
 
