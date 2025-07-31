@@ -478,8 +478,16 @@ button.selected:not(.btn-default) {
   
 }
 .order-options .delivery-options button#bogo, .order-options .delivery-options button#pre3pay {
-    border-radius: 0;
     border-bottom:0;
+}
+.order-options .delivery-options button#bogo{
+    border-radius: .25rem .25rem 0 0;
+}
+.order-options .delivery-options button#pre3pay {
+   border-radius: 0;
+}
+.order-options .delivery-options button#pre4pay {
+   border-radius:  0 0 .25rem .25rem;
 }
 .del-price {
     display: flex;
