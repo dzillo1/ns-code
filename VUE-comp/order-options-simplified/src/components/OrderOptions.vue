@@ -18,6 +18,12 @@ const selectedDays = ref('5day')
 function selectDays(day) {
     selectedDays.value = day;
 }
+
+const selectedShip = ref('auto-delivery')
+
+function selectShip(ship) {
+    selectedShip.value = ship;
+}
 </script>
 
 <template>
@@ -139,18 +145,142 @@ function selectDays(day) {
                                 <hr class="w-100">
                             </div>
                             <div class="d-flex flex-column delivery-options">
-                                <div class="ad-wrap">
-                                    <button type="button" value="autodelivery" id="autodelivery" name="delivery" onclick="omni_track('AutoDeliverySelected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="true" class="selected">
-                                        <div class="ship-btn-txt">
-                                            <div class="del-type">Monthly Auto-Delivery</div> <div><div class="price-per"><div class="del-price">$349.99 </div> <div class="per">/first shipment</div></div></div>  </div>
+                               
+                                    <button 
+                                    type="button" 
+                                    value="autodelivery" 
+                                    id="autodelivery" 
+                                    name="delivery" 
+                                    aria-pressed="true" 
+                                    :class="[selectedShip === 'auto-delivery' ? 'selected' : 'unselected']"
+                                    @click="selectShip('auto-delivery')"
+                                    >
+                                        <div class="d-flex">
+                                            <div class="del-type">Monthly Auto-Delivery</div> 
+                                        </div>
+                                            <p class="del-price">$349.99 <span class="per">/first shipment</span></p> 
+                                       
                                     </button>
-                                    </div> 
+                               
                                     <div class="sub-title-wrapper">
-                                        <span class="fw-500 tk-korolev">or Pre-pay &amp; Save up to $238!:</span> <hr></div> <div class="prepay-wrap">
-                                    <button type="button" value="bogo" id="bogo" name="delivery" onclick="omni_track('Prepay2Selected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="false" class="unselected"><div class="ship-btn-txt"><div class="del-type"><span class="save">Save $70.00</span> Pay for 2 Shipments Now</div> <div><div class="price-per"><div class="del-price">$314.99 </div> <div class="per">/shipment</div></div></div>  </div></button> <button type="button" value="pre3pay" id="pre3pay" name="delivery" onclick="omni_track('Prepay3Selected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="false" class="unselected"><div class="ship-btn-txt"><div class="del-type"><span class="save">Save $157.50</span> Pay for 3 Shipments Now </div> <div><div class="price-per"><div class="del-price">$297.49 </div> <div class="per">/shipment</div></div></div>  </div></button> <button type="button" value="pre4pay" id="pre4pay" name="delivery" onclick="omni_track('Prepay4Selected');$('.auto-d-wrap a.option-title').addClass('selected')" aria-pressed="false" class="unselected"><div class="ship-btn-txt"><div class="del-type"><span class="save">Save $237.99</span> Pay for 4 Shipments Now </div> <div><div class="price-per"><div class="del-price"> $290.49 </div> <div class="per">/shipment</div></div></div>  </div></button> </div></div>
+                                        <span class="fw-500 tk-korolev">or Pre-pay &amp; Save up to $238!:</span> <hr>
+                                    </div> 
+                                    
+                                   
+                                        <button 
+                                        type="button" 
+                                        value="bogo" 
+                                        id="bogo" 
+                                        name="delivery" 
+                                        aria-pressed="false" 
+                                        :class="[selectedShip === 'bogo' ? 'selected' : 'unselected']"
+                                        @click="selectShip('bogo')"
+                                        >
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-column">
+                                                    <p class="del-type">Pay for 2 Shipments Now</p> 
+                                                    <p class="del-price">$314.99 <span class="per">/shipment</span></p> 
+                                                </div>
+                                                <p class="save text-center flex-shrink-0">Save<br/> $70.00</p>
+                                            </div>
+                                        </button> 
+
+                                        <button 
+                                        type="button" 
+                                        value="pre3pay" 
+                                        id="pre3pay" 
+                                        name="delivery" 
+                                        
+                                        aria-pressed="false" 
+                                        :class="[selectedShip === 'prepay3' ? 'selected' : 'unselected']"
+                                        @click="selectShip('prepay3')"
+                                        >
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-column">
+                                                    <p class="del-type">Pay for 3 Shipments Now</p> 
+                                                    <p class="del-price">$297.49 <span class="per">/shipment</span></p> 
+                                                </div>
+                                                <p class="save text-center flex-shrink-0">Save<br/> $157.50</p>
+                                            </div>
+                                        </button> 
+
+                                        <button 
+                                        type="button" 
+                                        value="pre4pay" 
+                                        id="pre4pay" 
+                                        name="delivery" 
+                                    
+                                        aria-pressed="false" 
+                                        :class="[selectedShip === 'prepay4' ? 'selected' : 'unselected']"
+                                        @click="selectShip('prepay4')"
+                                        >
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-column">
+                                                    <p class="del-type">Pay for 4 Shipments Now</p> 
+                                                    <p class="del-price"> $290.49 <span class="per">/shipment</span></p> 
+                                                </div>
+                                                <p class="save text-center flex-shrink-0">Save<br/> $237.99</p>
+                                            </div>
+                                        </button> 
+                            </div>
+                        </div>
 
 
+                        <div class="price-col col-12 col-md-6">
+                            <div class="pricing-container d-flex flex-column gap-2 justify-content-between">
+                                <p class="price-header pb-2">4 weeks, 5 days per week</p> 
+                                <div class="plan-price d-flex justify-content-between">
+                                    <p>Plan Price</p> 
+                                    <p>$699.98</p>
+                                </div>   
+                                <div class="delivery-savings d-flex justify-content-between">
+                                    <p>Pay For 2 Shipments Discount:</p> 
+                                    <p class="fw-700 discount">-$70.00</p>
+                                </div>          
+                                <div class="per-month fw-700 d-flex justify-content-between">
+                                    <p>Price Per Shipment:</p> 
+                                    <p class="orderAmountStr">$314.99</p>
+                                </div> 
+                                <span id="autodelivery-price" style="display: none;"></span> 
+                                <span id="month2month-price" style="display: none;"></span> 
+                                <span id="bogo-price" style=""></span> 
+                                <span id="pre3pay-price" style="display: none;"></span> 
+                                <span id="pre4pay-price" style="display: none;"></span> 
+                                <span id="pre6pay-price" style="display: none;"></span>
+                            </div> 
+                            <div id="add-shakes">
+                                <div class="offer-link">
+                                    <p class="tk-korolev fw-500"><span class="fw-900">Bonus offer:</span> 50% off shakes to jumpstart your weight loss!
+                                        </p> 
+                                        <a href="#" data-target="#shakes-learn-more" data-toggle="modal" onclick="omni_track('Shakes:Details')" class="more-info-link">Details</a>
+                                </div> 
+                                <div class="shake-checkbox">
+                                    <input type="checkbox" name="shakes-added" id="shakes-added" onclick="omni_track('AddToPlanProbioticShakesCheckCheckbox')" aria-checked="false"> <label for="shakes-added"><p class="add">Add 28 Protein Shakes <br><span class="text-green-darker fw-900 text-uppercase">Save 50%</span></p></label> <p><s>$79.98</s><br><span class="text-green-darker fw-700">$39.98</span></p>
+                                </div> 
+                                <div id="flav-select" class="collapse">
+                                    <select id="choose-flavor" name="choose-flavor" class="form-control">
+                                        <option xsskuid="210154" xscategory="54" value="7698" selected="selected">Chocolate &amp; Vanilla
+                                    </option>
+                                    <option xsskuid="210157" xscategory="54" value="7696">Vanilla
+                                    </option>
+                                    <option xsskuid="210151" xscategory="54" value="7694">Chocolate
+                                    </option>
+                                    </select>
                                 </div>
+                            </div> 
+                            
+                                <button type="submit" id="submitBtn" onclick="omni_track('ContinueToCheckout')" class="rc-submit btn btn-default btn-lg">Continue</button>
+                      
+                            <div vxif="showMbg" class="mbg">
+                                <div class="mbg">
+                                    <img class="mbg-img img-responsive pull-left" alt="Money Back Guarantee" src="../assets/2020-MBG-GoldSeal.svg">
+                                    <p class="mbg-text tk-korolev fw-900">Try it and love it. Money back guaranteed. <a href="#MBG" data-target="#MBG" data-toggle="modal" class="" onclick="omni_track('MoneyBackGuarantee:SeeDetails')">Details</a></p>
+                                </div>
+                            </div>            
+                        </div>
+
+
+
                             </div><!--end row-->
                         </div>   
                     </div>
@@ -311,22 +441,100 @@ button.selected:not(.btn-default) {
 .order-options button.selected:not(.btn-default) .small {
     color: #fff;
 }
-.delivery-options button:not(.btn-default) {
-    display: flex;
+.order-options .delivery-options button:not(.btn-default) {
     border-radius: 0;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0;
     outline: 0;
-    background: #fff;
     border-radius: 0;
     font-family: arial, sans-serif;
     height: auto;
     width: 100%;
     text-align: left;
-    align-items: flex-start;
     border: 1px solid #bfc2c4;
-    border-bottom-width: 0;
     padding: 12px 16px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.11);
+}
+
+.order-options .delivery-options button:first-child {
+    border-radius: 4px;
+    margin-bottom:0.625rem;
+
+  
+}
+.order-options .delivery-options button#bogo, .order-options .delivery-options button#pre3pay {
+    border-radius: 0;
+    border-bottom:0;
+}
+.del-price {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--Text-text-primary, #29353A);
+}
+button.selected .del-price {
+    color: #fff;
+}
+button.selected .save {
+    color: #B5F25B;
+}
+.delivery-options .save {
+    color: #006b00;
+    font-weight: 900;
+    line-height: 1.2;
+    font-family: Korolev;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.pricing-container{
+   margin-bottom: 1.5rem;
+    border-radius: .25rem;
+    background: var(--Background-background-utility, #F9F9F9);
+    padding: 1rem; 
+}
+
+#submitBtn {
+    height: 57px;
+    border-radius: .25rem;
+    padding: 0;
+    font-size: 1.875rem;
+    font-family: korolev, arial, sans-serif;
+    font-weight:700;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f76800;
+    border-color: #f76800;
+    color: #fff;
+    width:100%
+}
+
+.mbg-img {
+    width: 2.938rem;
+    height: auto;
+}
+
+.price-header{
+   border-bottom: 1px solid var(--Stroke-stroke-primary, #BFC2C4); 
+   text-align:center;
+   font-size: 1.1875rem;
+    font-weight: 700;
+}
+
+.delivery-savings{
+    display:none
+}
+
+
+
+
+
+
+@media(max-width:767px){
+    .option-col{
+        margin-bottom: 2.5rem;
+    }
 }
 </style>
