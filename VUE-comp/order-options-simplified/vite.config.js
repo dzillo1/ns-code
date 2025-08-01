@@ -3,5 +3,5 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/ns-code/VUE-comp/order-options-simplified',
+  base: '/ns-code/VUE-comp/order-options-simplified/',
 })
