@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://dzillo1.github.io/ns-code/VUE-comp/order-options-simplified/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
