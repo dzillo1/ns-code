@@ -4,7 +4,7 @@ import { resolve } from 'path' // Import `resolve` from `path`
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/ns-code/VUE-comp/order-options-simplified/',
+  base: '/VUE-comp/order-options-simplified/',
   build: {
     rollupOptions: {
       input: {
