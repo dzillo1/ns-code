@@ -19,6 +19,8 @@ function selectDays(day) {
     selectedDays.value = day;
 }
 
+
+
 const selectedShip = ref('auto-delivery')
 
 function selectShip(ship) {
