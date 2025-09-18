@@ -274,7 +274,7 @@ function selectShip(ship) {
                                 
                                     <button type="submit" id="submitBtn" onclick="omni_track('ContinueToCheckout')" class="rc-submit btn btn-default btn-lg">Continue</button>
                           
-                                <div vxif="showMbg">
+                                <div v-if="showMbg">
                                     <div class="mbg d-flex align-items-center gap-3">
                                         <img class="mbg-img img-responsive pull-left" alt="Money Back Guarantee" src="../assets/2020-MBG-GoldSeal.svg">
                                         <p class="mbg-text tk-korolev fw-900">Try it and love it. Money back guaranteed. <a href="#MBG" data-target="#MBG" data-toggle="modal" class="detail-link" onclick="omni_track('MoneyBackGuarantee:SeeDetails')">Details</a></p>

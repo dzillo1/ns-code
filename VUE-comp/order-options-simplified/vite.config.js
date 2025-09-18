@@ -4,7 +4,8 @@ import { resolve } from 'path' // Import `resolve` from `path`
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/VUE-comp/order-options-simplified/',
+  // Use the same base as package.json homepage so GH Pages serves assets correctly
+  base: '/ns-code/VUE-comp/order-options-simplified/',
   build: {
     rollupOptions: {
       input: {
