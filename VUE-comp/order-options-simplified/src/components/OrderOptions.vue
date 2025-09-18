@@ -1,4 +1,5 @@
 <script setup>
+
 import { ref } from 'vue'
 
 const selectedMenu = ref('chefs')
@@ -19,13 +20,26 @@ function selectDays(day) {
     selectedDays.value = day;
 }
 
-
-
 const selectedShip = ref('auto-delivery')
 
 function selectShip(ship) {
     selectedShip.value = ship;
 }
+
+
+
+    return {
+        pricePerShipment: '349.99'
+    }
+
+
+
+
+
+
+
+
+
 </script>
 
 <template>
@@ -249,7 +263,7 @@ function selectShip(ship) {
     
                                     <div class="per-shipment fw-700 d-flex justify-content-between">
                                         <p>Price Per Shipment:</p> 
-                                        <p class="orderAmountStr">$314.99</p>
+                                        <p class="orderAmountStr">${{pricePerShipment}}</p>
                                     </div> 
           
                                 </div> 
@@ -299,6 +313,7 @@ function selectShip(ship) {
 
     p{
         margin:0;
+        
         line-height:1;
         font-family: arial, Helvetica;
     }
