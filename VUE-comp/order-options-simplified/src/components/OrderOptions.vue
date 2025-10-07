@@ -1,45 +1,89 @@
 <script setup>
+import { ref, computed } from 'vue'
+import { PRICING, getPricing } from '../config/pricing'
+import { formatCurrency } from '../utils/format'
 
-import { ref } from 'vue'
-
+// Selection state
 const selectedMenu = ref('chefs')
-
 function selectMenu(menu) {
-    selectedMenu.value = menu;
+    selectedMenu.value = menu
 }
 
 const selectedPeople = ref('one')
-
 function setNumberOfPeople(people) {
-    selectedPeople.value = people;
+    // only update the selection; derived values are computed below
+    selectedPeople.value = people
 }
 
 const selectedDays = ref('5day')
-
 function selectDays(day) {
-    selectedDays.value = day;
+    // update selection; daysPerWeek is derived via computed
+    selectedDays.value = day
 }
 
 const selectedShip = ref('auto-delivery')
-
 function selectShip(ship) {
-    selectedShip.value = ship;
+    selectedShip.value = ship
 }
 
 
 
-    return {
-        pricePerShipment: '349.99'
-    }
+
+// Values referenced in template — derive these from the PRICING config (people, days, ship)
+const currentPricing = computed(() => getPricing(selectedPeople.value, selectedDays.value, selectedShip.value))
+
+const planPrice = computed(() => currentPricing.value.planPrice)
+const pricePerShipment = computed(() => currentPricing.value.pricePerShipment)
+const autoDeliveryPerShip = computed(() => currentPricing.value.autoDeliveryPerShip)
+
+const numberWeeks = computed(() => currentPricing.value.numberWeeks)
+const daysPerWeek = computed(() => (selectedDays.value === '7day' ? 7 : 5))
+
+// derive prepay info from the current pricing
+const prepaySaveUpTo = PRICING.prepay?.saveUpTo || 0
+
+const bogoPerShip = computed(() => currentPricing.value.prepay.perShip)
+const bogoSave = computed(() => currentPricing.value.prepay.save)
+
+const prePay3PerShip = computed(() => currentPricing.value.prepay.perShip)
+const prePay3Save = computed(() => currentPricing.value.prepay.save)
+
+const prePay4PerShip = computed(() => currentPricing.value.prepay.perShip)
+const prePay4Save = computed(() => currentPricing.value.prepay.save)
+
+// Formatted computed values for template convenience
+const formatted = {
+  planPrice: computed(() => formatCurrency(planPrice.value)),
+  pricePerShipment: computed(() => formatCurrency(pricePerShipment.value)),
+  autoDeliveryPerShip: computed(() => formatCurrency(autoDeliveryPerShip.value)),
+  bogoPerShip: computed(() => formatCurrency(bogoPerShip)),
+    bogoSave: computed(() => formatCurrency(bogoSave.value || 0)),
+    prePay3PerShip: computed(() => formatCurrency(prePay3PerShip.value || 0)),
+    prePay3Save: computed(() => formatCurrency(prePay3Save.value || 0)),
+    prePay4PerShip: computed(() => formatCurrency(prePay4PerShip.value || 0)),
+    prePay4Save: computed(() => formatCurrency(prePay4Save.value || 0)),
+}
+
+// Show delivery savings and compute number of shipments + discount based on selectedShip
+const numberShipments = computed(() => {
+    if (selectedShip.value === 'bogo') return 2
+    if (selectedShip.value === 'prepay3') return 3
+    if (selectedShip.value === 'prepay4') return 4
+    return null
+})
+
+const shipmentsDiscount = computed(() => {
+    if (selectedShip.value === 'bogo') return formatted.bogoSave.value
+    if (selectedShip.value === 'prepay3') return formatted.prePay3Save.value
+    if (selectedShip.value === 'prepay4') return formatted.prePay4Save.value
+    return null
+})
+
+const showDeliverySavings = computed(() => numberShipments.value !== null)
 
 
 
-
-
-
-
-
-
+const showMbg = ref(true)
 </script>
 
 <template>
@@ -52,261 +96,270 @@ function selectShip(ship) {
                 <h1 class="mb-3">Nutrisystem Program</h1>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
-           
-                    <div class="bg-white">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="option-title select-menu">Select Your Menu 
-                                    <a href="#" onclick="omni_track('WhichisBest')" data-bs-target="#chefsPicks" data-bs-toggle="modal" class="more-info-link">More Info</a>
-                                </h2> 
-                            </div>  
+                <div class="bg-white">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="option-title select-menu">
+                                Select Your Menu
+                                <a href="#" onclick="omni_track('WhichisBest')" data-bs-target="#chefsPicks" data-bs-toggle="modal" class="more-info-link">More Info</a>
+                            </h2>
+                        </div>
 
-                            <div class="col-12">
-                                <div class="d-flex flex-column flex-md-row gap-3 mb-md-4 justify-content-center">
-                                    <button 
-                                    type="button" 
-                                    aria-pressed="true" 
-                                    value="favorite" 
-                                    id="favorites" 
-                                    name="favorite" 
+                        <div class="col-12">
+                            <div class="d-flex flex-column flex-md-row gap-3 mb-md-4 justify-content-center">
+                                <button
+                                    type="button"
+                                    aria-pressed="true"
+                                    value="favorite"
+                                    id="favorites"
+                                    name="favorite"
                                     class="menu-btn"
                                     :class="[selectedMenu === 'chefs' ? 'selected' : 'unselected']"
                                     @click="selectMenu('chefs')"
-                                    >
-                                            <img src="../assets/chefpicks-btn.webp" alt="" loading="lazy" class="img-fluid">
-                                        <div class="d-flex flex-column">
-                                            <span class="btn-label">Chef’s Picks</span> 
-                                            <span class="btn-desc">Recommended—try a variety of customer favorites</span>
-                                        </div>
-                                    </button> 
-                                    <button 
-                                    type="button" 
-                                    value="custom" 
-                                    id="custom" 
-                                    name="custom" 
-                                    aria-pressed="false" 
+                                >
+                                    <img src="../assets/chefpicks-btn.webp" alt="" loading="lazy" class="img-fluid" />
+                                    <div class="d-flex flex-column">
+                                        <span class="btn-label">Chef’s Picks</span>
+                                        <span class="btn-desc">Recommended—try a variety of customer favorites</span>
+                                    </div>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    value="custom"
+                                    id="custom"
+                                    name="custom"
+                                    aria-pressed="false"
                                     class="menu-btn"
                                     :class="[selectedMenu === 'own' ? 'selected' : 'unselected']"
                                     @click="selectMenu('own')"
-                                    >
-                                    <img src="../assets/chooseown-btn.webp" alt="" loading="lazy" class="img-fluid">
-                                        <div class="txt-wrap">
-                                            <span class="btn-label">Choose My Own</span> 
-                                            <span class="btn-desc">Simply pick what you like</span>
-                                        </div>
-                                    </button>
-                                    <hr>
-                                </div>
+                                >
+                                    <img src="../assets/chooseown-btn.webp" alt="" loading="lazy" class="img-fluid" />
+                                    <div class="txt-wrap">
+                                        <span class="btn-label">Choose My Own</span>
+                                        <span class="btn-desc">Simply pick what you like</span>
+                                    </div>
+                                </button>
+                                <hr />
+                            </div>
 
                             <div class="row">
                                 <div class="col-12 col-md-6 order-options option-col">
-                                    <h2 class="option-title">Number of People 
+                                    <h2 class="option-title">
+                                        Number of People
                                         <a href="#" onclick="omni_track('WhichisBest')" data-bs-target="#numberPeople" data-bs-toggle="modal" class="more-info-link">More Info</a>
-                                    </h2> 
+                                    </h2>
+
                                     <div class="btn-wrap mb-3">
-                                    <button 
-                                        type="button" 
-                                        value="women" 
-                                        id="women" 
-                                        name="women" 
-                                        aria-pressed="false" 
-                                        :class="[selectedPeople === 'one' ? 'selected' : 'unselected']"
-                                        @click="setNumberOfPeople('one')"
-                                    >Individual
-                                    </button> 
-                                    <button 
-                                        type="button" 
-                                        aria-pressed="true" 
-                                        value="men" 
-                                        id="men" 
-                                        name="men" 
-                                        :class="[selectedPeople === 'two' ? 'selected' : 'unselected']"
-                                        @click="setNumberOfPeople('two')"
-                                    >Add a Partner
-                                    <br aria-hidden="true">
-                                    <span class="small fw-400">Save 15%</span>
-                                    </button>
+                                        <button
+                                            type="button"
+                                            value="women"
+                                            id="women"
+                                            name="women"
+                                            aria-pressed="false"
+                                            :class="[selectedPeople === 'one' ? 'selected' : 'unselected']"
+                                            @click="setNumberOfPeople('one')"
+                                        >
+                                            Individual
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            aria-pressed="true"
+                                            value="men"
+                                            id="men"
+                                            name="men"
+                                            :class="[selectedPeople === 'two' ? 'selected' : 'unselected']"
+                                            @click="setNumberOfPeople('two')"
+                                        >
+                                            Add a Partner
+                                            <br aria-hidden="true" />
+                                            <span class="small fw-400">Save 15%</span>
+                                        </button>
                                     </div>
-                               
-    
-                                <h2 class="option-title">Days of Meals per week 
-                                    <a href="#" onclick="omni_track('MoreInfo:MealDays')" data-bs-target="#mealdays" data-bs-toggle="modal" class="more-info-link">More info</a>
-                                </h2> 
-                                <div class="btn-wrap mb-4-5">
-                                    <button 
-                                    type="button" 
-                                    value="most-day" 
-                                    id="mostDay" 
-                                    name="most-day" 
-                                    aria-pressed="false" 
-                                    :class="[selectedDays === '5day' ? 'selected' : 'unselected']"
-                                    @click="selectDays('5day')"
-                                    >5 Days</button> 
-                                    <button 
-                                    type="button" 
-                                    value="every-day" 
-                                    id="everyDay" 
-                                    name="every-day" 
-                                    aria-pressed="false" 
-                                    :class="[selectedDays === '7day' ? 'selected' : 'unselected']"
-                                    @click="selectDays('7day')"
-                                    >7 Days</button>
-                                </div>
-                                   <hr class="d-block d-md-none">
-    
-                                <h2 class="option-title">Purchase Options</h2> 
-                                <div class="sub-title-wrapper d-flex align-items-center gap-2 mb-3">
-                                    <p class="fw-500 tk-korolev flex-shrink-0">Pay Monthly:</p> 
-                                    <hr class="w-100 m-0">
-                                </div>
-                                <div class="d-flex flex-column delivery-options">
-                                   
-                                        <button 
-                                        type="button" 
-                                        value="autodelivery" 
-                                        id="autodelivery" 
-                                        name="delivery" 
-                                        aria-pressed="true" 
-                                        :class="[selectedShip === 'auto-delivery' ? 'selected' : 'unselected']"
-                                        @click="selectShip('auto-delivery')"
+
+                                    <h2 class="option-title">
+                                        Days of Meals per week
+                                        <a href="#" onclick="omni_track('MoreInfo:MealDays')" data-bs-target="#mealdays" data-bs-toggle="modal" class="more-info-link">More info</a>
+                                    </h2>
+
+                                    <div class="btn-wrap mb-4-5">
+                                        <button
+                                            type="button"
+                                            value="most-day"
+                                            id="mostDay"
+                                            name="most-day"
+                                            aria-pressed="false"
+                                            :class="[selectedDays === '5day' ? 'selected' : 'unselected']"
+                                            @click="selectDays('5day')"
+                                        >
+                                            5 Days
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            value="every-day"
+                                            id="everyDay"
+                                            name="every-day"
+                                            aria-pressed="false"
+                                            :class="[selectedDays === '7day' ? 'selected' : 'unselected']"
+                                            @click="selectDays('7day')"
+                                        >
+                                            7 Days
+                                        </button>
+                                    </div>
+
+                                    <hr class="d-block d-md-none" />
+
+                                    <h2 class="option-title">Purchase Options</h2>
+                                    <div class="sub-title-wrapper d-flex align-items-center gap-2 mb-3">
+                                        <p class="fw-500 tk-korolev flex-shrink-0">Pay Monthly:</p>
+                                        <hr class="w-100 m-0" />
+                                    </div>
+
+                                    <div class="d-flex flex-column delivery-options">
+                                        <button
+                                            type="button"
+                                            value="autodelivery"
+                                            id="autodelivery"
+                                            name="delivery"
+                                            aria-pressed="true"
+                                            :class="[selectedShip === 'auto-delivery' ? 'selected' : 'unselected']"
+                                            @click="selectShip('auto-delivery')"
                                         >
                                             <div class="d-flex">
-                                                <div class="del-type">Monthly Auto-Delivery</div> 
+                                                <div class="del-type">Monthly Auto-Delivery</div>
                                             </div>
-                                                <p class="del-price">$349.99 <span class="per">/first shipment</span></p> 
-                                           
+                                            <p class="del-price">{{formatted.autoDeliveryPerShip}} <span class="per">/first shipment</span></p>
                                         </button>
-                                   
+
                                         <div class="sub-title-wrapper mb-3">
-                                            <span class="fw-500 tk-korolev">or Pre-pay &amp; Save up to $238!:</span>
-                                        </div> 
-                                        
-                                       
-                                            <button 
-                                            type="button" 
-                                            value="bogo" 
-                                            id="bogo" 
-                                            name="delivery" 
-                                            aria-pressed="false" 
+                                            <span class="fw-500 tk-korolev">or Pre-pay &amp; Save up to ${{prepaySaveUpTo}}!:</span>
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            value="bogo"
+                                            id="bogo"
+                                            name="delivery"
+                                            aria-pressed="false"
                                             :class="[selectedShip === 'bogo' ? 'selected' : 'unselected']"
                                             @click="selectShip('bogo')"
-                                            >
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex flex-column">
-                                                        <p class="del-type">Pay for 2 Shipments Now</p> 
-                                                        <p class="del-price">$314.99 <span class="per">/shipment</span></p> 
-                                                    </div>
-                                                    <p class="save text-center flex-shrink-0">Save<br/> $70.00</p>
-                                                </div>
-                                            </button> 
-    
-                                            <button 
-                                            type="button" 
-                                            value="pre3pay" 
-                                            id="pre3pay" 
-                                            name="delivery" 
-                                            
-                                            aria-pressed="false" 
+                                        >
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex flex-column">
+                                                                <p class="del-type">Pay for 2 Shipments Now</p>
+                                                                <p class="del-price">{{formatted.bogoPerShip}} <span class="per">/shipment</span></p>
+                                                            </div>
+                                                            <p class="save text-center flex-shrink-0">Save<br /> {{formatted.bogoSave}}</p>
+                                            </div>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            value="pre3pay"
+                                            id="pre3pay"
+                                            name="delivery"
+                                            aria-pressed="false"
                                             :class="[selectedShip === 'prepay3' ? 'selected' : 'unselected']"
                                             @click="selectShip('prepay3')"
-                                            >
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex flex-column">
-                                                        <p class="del-type">Pay for 3 Shipments Now</p> 
-                                                        <p class="del-price">$297.49 <span class="per">/shipment</span></p> 
-                                                    </div>
-                                                    <p class="save text-center flex-shrink-0">Save<br/> $157.50</p>
+                                        >
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-column">
+                                                    <p class="del-type">Pay for 3 Shipments Now</p>
+                                                    <p class="del-price">{{formatted.prePay3PerShip}} <span class="per">/shipment</span></p>
                                                 </div>
-                                            </button> 
-    
-                                            <button 
-                                            type="button" 
-                                            value="pre4pay" 
-                                            id="pre4pay" 
-                                            name="delivery" 
-                                        
-                                            aria-pressed="false" 
+                                                <p class="save text-center flex-shrink-0">Save<br /> {{formatted.prePay3Save}}</p>
+                                            </div>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            value="pre4pay"
+                                            id="pre4pay"
+                                            name="delivery"
+                                            aria-pressed="false"
                                             :class="[selectedShip === 'prepay4' ? 'selected' : 'unselected']"
                                             @click="selectShip('prepay4')"
-                                            >
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex flex-column">
-                                                        <p class="del-type">Pay for 4 Shipments Now</p> 
-                                                        <p class="del-price"> $290.49 <span class="per">/shipment</span></p> 
-                                                    </div>
-                                                    <p class="save text-center flex-shrink-0">Save<br/> $237.99</p>
+                                        >
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-column">
+                                                    <p class="del-type">Pay for 4 Shipments Now</p>
+                                                    <p class="del-price"> {{formatted.prePay4PerShip}} <span class="per">/shipment</span></p>
                                                 </div>
-                                            </button> 
-                                </div>
-                            </div>
-    
-    
-                            <div class="price-col col-12 col-md-6">
-                                <div class="pricing-container d-flex flex-column gap-3">
-                                    <p class="price-header pb-2">4 weeks, 5 days per week</p> 
-    
-    
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="plan-price d-flex justify-content-between">
-                                            <p>Plan Price</p> 
-                                            <p>$699.98</p>
-                                        </div>   
-                                        <div class="delivery-savings">
-                                            <p>Pay For 2 Shipments Discount:</p> 
-                                            <p class="fw-700 discount">-$70.00</p>
-                                        </div> 
-                                        <hr class="m-0">
+                                                <p class="save text-center flex-shrink-0">Save<br /> {{formatted.prePay4Save}}</p>
+                                            </div>
+                                        </button>
                                     </div>
-    
-    
-                                    <div class="per-shipment fw-700 d-flex justify-content-between">
-                                        <p>Price Per Shipment:</p> 
-                                        <p class="orderAmountStr">${{pricePerShipment}}</p>
-                                    </div> 
-          
-                                </div> 
-    
-    
-                        <div id="addShakes" class="card mb-3">
-                            <div class="card-top d-flex align-items-center justify-content-between">
-                                <p class="tk-korolev"><span class="fw-900">Bonus offer:</span> 50% off shakes to jumpstart your weight loss!</p> 
-                                <a href="#" data-bs-target="#shakes-learn-more" data-bs-toggle="modal"  class="detail-link">Details</a>
-                            </div> 
-                            <div class="card-body p-3 w-100">
-                                <div class="shake-checkbox form-check d-flex gap-3 align-items-start">
-                                    <input id="shakesAdded" class="form-check-input" type="checkbox" value="" name="shakes-added" data-bs-toggle="collapse" href="#flavorSelect" aria-checked="false"> 
-                                    <p class="tk-korolev add ms-0">Add 28 Protein Shakes <br/><span class="text-dk-grn fw-900 text-uppercase tk-arial">Save 50%</span></p> 
-                                    <p class="price ms-auto"><s>$79.98</s><br aria-hidden="true"><span class="text-dk-grn fw-700">$39.98</span></p>
-                                </div> 
-                                <div id="flavorSelect" class="collapse mt-3" aria-expanded="false">
-                                    <select id="chooseFlavor" name="choose-flavor" class="form-control"><option xsskuid="210154" xscategory="54" value="7698" selected="selected">Chocolate &amp; Vanilla </option><option xsskuid="210157" xscategory="54" value="7696">Vanilla </option><option xsskuid="210151" xscategory="54" value="7694">Chocolate </option></select>
+                                </div>
+
+                                <div class="price-col col-12 col-md-6">
+                                    <div class="pricing-container d-flex flex-column gap-3">
+
+
+
+                                        <p class="price-header pb-2">{{numberWeeks}} weeks, {{daysPerWeek}} days per week</p>
+
+                                        <div class="d-flex flex-column gap-3">
+                                            <div class="plan-price d-flex justify-content-between">
+                                                <p>Plan Price</p>
+                                                <p>{{formatted.planPrice}}</p>
+                                            </div>
+                                            <transition name="fade-slide">
+                                                <div v-if="showDeliverySavings" class="delivery-savings d-flex justify-content-between">
+                                                        <p>Pay For {{numberShipments}} Shipments Discount:</p>
+                                                        <p class="fw-700 discount">-{{shipmentsDiscount}}</p>
+                                                </div>
+                                            </transition>
+                                            <hr class="m-0" />
+                                        </div>
+
+                                        <div class="per-shipment fw-700 d-flex justify-content-between">
+                                            <p>Price Per Shipment:</p>
+                                            <p class="orderAmountStr">{{formatted.pricePerShipment}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div id="addShakes" class="card mb-3">
+                                        <div class="card-top d-flex align-items-center justify-content-between">
+                                            <p class="tk-korolev"><span class="fw-900">Bonus offer:</span> 50% off shakes to jumpstart your weight loss!</p>
+                                            <a href="#" data-bs-target="#shakes-learn-more" data-bs-toggle="modal" class="detail-link">Details</a>
+                                        </div>
+                                        <div class="card-body p-3 w-100">
+                                            <div class="shake-checkbox form-check d-flex gap-3 align-items-start">
+                                                <input id="shakesAdded" class="form-check-input" type="checkbox" value="" name="shakes-added" data-bs-toggle="collapse" href="#flavorSelect" aria-checked="false" />
+                                                <p class="tk-korolev add ms-0">Add 28 Protein Shakes <br /><span class="text-dk-grn fw-900 text-uppercase tk-arial">Save 50%</span></p>
+                                                <p class="price ms-auto"><s>$79.98</s><br aria-hidden="true" /><span class="text-dk-grn fw-700">$39.98</span></p>
+                                            </div>
+                                            <div id="flavorSelect" class="collapse mt-3" aria-expanded="false">
+                                                <select id="chooseFlavor" name="choose-flavor" class="form-control">
+                                                    <option xsskuid="210154" xscategory="54" value="7698" selected="selected">Chocolate &amp; Vanilla</option>
+                                                    <option xsskuid="210157" xscategory="54" value="7696">Vanilla</option>
+                                                    <option xsskuid="210151" xscategory="54" value="7694">Chocolate</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" id="submitBtn" onclick="omni_track('ContinueToCheckout')" class="rc-submit btn btn-default btn-lg">Continue</button>
+
+                                    <div v-if="showMbg">
+                                        <div class="mbg d-flex align-items-center gap-3">
+                                            <img class="mbg-img img-responsive pull-left" alt="Money Back Guarantee" src="../assets/2020-MBG-GoldSeal.svg" />
+                                            <p class="mbg-text tk-korolev fw-900">Try it and love it. Money back guaranteed. <a href="#MBG" data-target="#MBG" data-toggle="modal" class="detail-link" onclick="omni_track('MoneyBackGuarantee:SeeDetails')">Details</a></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                                
-                                    <button type="submit" id="submitBtn" onclick="omni_track('ContinueToCheckout')" class="rc-submit btn btn-default btn-lg">Continue</button>
-                          
-                                <div v-if="showMbg">
-                                    <div class="mbg d-flex align-items-center gap-3">
-                                        <img class="mbg-img img-responsive pull-left" alt="Money Back Guarantee" src="../assets/2020-MBG-GoldSeal.svg">
-                                        <p class="mbg-text tk-korolev fw-900">Try it and love it. Money back guaranteed. <a href="#MBG" data-target="#MBG" data-toggle="modal" class="detail-link" onclick="omni_track('MoneyBackGuarantee:SeeDetails')">Details</a></p>
-                                    </div>
-                                </div>            
-                            </div>
-                            </div>
-
-
-
-                            </div><!--end row-->
-                        </div>   
                     </div>
-             
+                </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <style scoped>
@@ -567,7 +620,10 @@ button.selected .save {
 }
 
 .delivery-savings{
-    display:none
+    padding: 0.5rem 0;
+        color: #006b00;
+    font-weight:bold;
+
 }
 .per-shipment{
     font-size:1.25rem;
@@ -672,5 +728,16 @@ line-height:1.5;
     .option-col, .price-col {
         padding: 0 2rem;
     }
+}
+
+/* Transition for delivery savings panel */
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+    transition: opacity 220ms ease, transform 220ms ease;
 }
 </style>
