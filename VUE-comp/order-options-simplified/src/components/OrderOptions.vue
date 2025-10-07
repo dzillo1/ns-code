@@ -39,24 +39,26 @@ const autoDeliveryPerShip = computed(() => currentPricing.value.autoDeliveryPerS
 const numberWeeks = computed(() => currentPricing.value.numberWeeks)
 const daysPerWeek = computed(() => (selectedDays.value === '7day' ? 7 : 5))
 
-// derive prepay info from the current pricing
-const prepaySaveUpTo = PRICING.prepay?.saveUpTo || 0
+// derive prepay info from the current pricing (updates when people/days/ship change)
+const prepaySaveUpTo = computed(() => currentPricing.value.prepay?.saveUpTo || 0)
 
-const bogoPerShip = computed(() => currentPricing.value.prepay.perShip)
-const bogoSave = computed(() => currentPricing.value.prepay.save)
+// Per-option pricing should be read from the pricing config for that option
+// (so the option labels show the correct numbers even when another option is selected).
+const bogoPerShip = computed(() => getPricing(selectedPeople.value, selectedDays.value, 'bogo').prepay.perShip)
+const bogoSave = computed(() => getPricing(selectedPeople.value, selectedDays.value, 'bogo').prepay.save)
 
-const prePay3PerShip = computed(() => currentPricing.value.prepay.perShip)
-const prePay3Save = computed(() => currentPricing.value.prepay.save)
+const prePay3PerShip = computed(() => getPricing(selectedPeople.value, selectedDays.value, 'prepay3').prepay.perShip)
+const prePay3Save = computed(() => getPricing(selectedPeople.value, selectedDays.value, 'prepay3').prepay.save)
 
-const prePay4PerShip = computed(() => currentPricing.value.prepay.perShip)
-const prePay4Save = computed(() => currentPricing.value.prepay.save)
+const prePay4PerShip = computed(() => getPricing(selectedPeople.value, selectedDays.value, 'prepay4').prepay.perShip)
+const prePay4Save = computed(() => getPricing(selectedPeople.value, selectedDays.value, 'prepay4').prepay.save)
 
 // Formatted computed values for template convenience
 const formatted = {
   planPrice: computed(() => formatCurrency(planPrice.value)),
   pricePerShipment: computed(() => formatCurrency(pricePerShipment.value)),
   autoDeliveryPerShip: computed(() => formatCurrency(autoDeliveryPerShip.value)),
-  bogoPerShip: computed(() => formatCurrency(bogoPerShip)),
+    bogoPerShip: computed(() => formatCurrency(bogoPerShip.value || 0)),
     bogoSave: computed(() => formatCurrency(bogoSave.value || 0)),
     prePay3PerShip: computed(() => formatCurrency(prePay3PerShip.value || 0)),
     prePay3Save: computed(() => formatCurrency(prePay3Save.value || 0)),
