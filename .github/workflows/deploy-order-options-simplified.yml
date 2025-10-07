@@ -30,11 +30,34 @@ jobs:
         run: npm run build
         working-directory: VUE-comp/order-options-simplified
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./VUE-comp/order-options-simplified/dist
-          publish_branch: gh-pages
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+      - name: Deploy to gh-pages under VUE-comp/order-options-simplified/
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Use token for pushing
+          git remote set-url origin "https://x-access-token:${REPO_TOKEN}@github.com/${{ github.repository }}.git"
+
+          # Fetch gh-pages if it exists
+          git fetch origin gh-pages || true
+
+          if git rev-parse --verify origin/gh-pages >/dev/null 2>&1; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf . || true
+            git clean -fdx || true
+            git commit --allow-empty -m "Init gh-pages" || true
+          fi
+
+          # Remove previous folder for this app and copy fresh build
+          rm -rf VUE-comp/order-options-simplified
+          mkdir -p VUE-comp/order-options-simplified
+          cp -R VUE-comp/order-options-simplified/dist/* VUE-comp/order-options-simplified/
+
+          git add VUE-comp/order-options-simplified
+          git commit -m "Deploy order-options-simplified" || echo "No changes to commit"
+          git push origin gh-pages --force
